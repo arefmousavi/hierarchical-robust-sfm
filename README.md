@@ -5,7 +5,7 @@ Official PyTorch implementation of **"Transferable Adversarial Robustness for Sp
 > **Authors:** Aref Mousavi, Shahab Sherafat\*, Kiarash Kiani Feriz\*, Amirparsa Safari\*, Raoof Zare Moayedi, Mohammad Hossein Rohban, Mohammad Sabokrou  
 > \* Equal contribution.
 
-**Links:** Paper and BibTeX coming soon.
+**Links:** Paper and BibTeX will be available after publication.
 
 <p align="center">
   <img src="assets/overview.png" width="100%" alt="Hierarchical robustification, clean task adaptation, and head-only margin refinement">
