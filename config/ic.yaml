@@ -1,0 +1,63 @@
+task: "ic"
+seed: 42
+device: "cuda"
+float32_matmul_precision: "high"
+foundation_model: "wavlm"  # match model.selected in foundation.yaml
+foundation_checkpoint: "outputs/foundation/{model}/theta_r"
+
+data:
+  # Set the dataset root here. Relative paths are resolved from the repository root.
+  root: "/path/to/fluent_speech_commands"
+  sample_rate: 16000
+  max_len_sec: 15.0
+  batch_size: 16
+  num_workers: 4
+
+adapt:
+  epochs: 100
+  lr: 1.0e-2
+  fusion_lr_scale: 1.0
+  batch: 16
+  weight_decay: 0.0
+  label_smoothing: 0.0
+  feature_batch_size: 16
+  log_every: 10
+
+stage2:
+  objective: "smooth"
+  lambda2: 2.0
+  tau: 0.1
+  epochs: 50
+  lr: 1.0e-3
+  warmup_frac: 0.10
+  batch: 16
+  weight_decay: 0.0
+  seed: 7
+  max_clean_drop_pp: 0.5
+  select_metric: "m10"
+  log_every: 5
+
+evaluation:
+  clean: true
+  adversarial:
+    enabled: true
+    phases: ["clean_adapted", "margin_refined"]
+    target_snr: 30.0
+    steps: 50
+    restarts: 2
+    batch_size: 1
+    num_workers: 2
+    seed: 2027
+    max_test_utterances: 0
+    apgd_ce: {enabled: true, rho: 0.75}
+    normalized_margin: {enabled: true, alpha: 0.25}
+    fused_displacement: {enabled: true, alpha: 0.25}
+    psychoacoustic:
+      enabled: true
+      alpha: 0.25
+      masking_weight: 0.05
+      n_fft: 2048
+      hop_length: 512
+
+train:
+  output_dir: "outputs/downstream/ic"

@@ -1,0 +1,64 @@
+# Stage 1: hierarchical robustification.
+# Select one backbone. Its calibration and output directories are kept separate.
+
+seed: 42
+device: "cuda"
+dtype: "float32"
+float32_matmul_precision: "high"
+
+model:
+  selected: "wavlm"  # choose: wav2vec2 | hubert | wavlm
+  choices:
+    wav2vec2:
+      type: "wav2vec2"
+      pretrained_name: "facebook/wav2vec2-large"
+      local_path: null  # optional path to a local from_pretrained directory
+      padding_mode: "isolated"
+    hubert:
+      type: "hubert"
+      pretrained_name: "facebook/hubert-large-ll60k"
+      local_path: null
+      padding_mode: "isolated"
+    wavlm:
+      type: "wavlm"
+      pretrained_name: "microsoft/wavlm-large"
+      local_path: null
+      padding_mode: "isolated"
+
+data:
+  # Set these paths before running Stage 1. Relative paths are resolved from the repository root.
+  root: "/path/to/common_voice"
+  sample_rate: 16000
+  max_len_sec: 10.0
+  # Manifests are TSV files with a `path` column.
+  train_manifest: "/path/to/common_voice_manifests/D_train.tsv"
+  val_manifest: "/path/to/common_voice_manifests/D_tune.tsv"
+  sigma_manifest: "/path/to/common_voice_manifests/D_U_prime.tsv"
+  train_samples: null
+  val_samples: null
+
+foundation:
+  # {model} is replaced by model.selected by run_foundation_robustify.py.
+  sigma_path: "artifacts/foundation/sigma_{model}.pt"
+  sigma_samples: null
+  sigma_batch_size: 1
+  sigma_num_workers: 2
+  lambda_pres: 0.2
+  beta: 30.0
+
+train:
+  epochs: 3
+  batch_size: 8
+  num_workers: 4
+  grad_accumulation_steps: 1
+  gradient_checkpointing: true
+  lr: 5.0e-5
+  weight_decay: 0.0
+  warmup_ratio: 0.10
+  max_grad_norm: 1.0
+  output_dir: "outputs/foundation/{model}"
+  attack:
+    steps: 10
+    alpha: 0.25
+    target_snr: 30.0
+    momentum: 0.0
