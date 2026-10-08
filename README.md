@@ -272,7 +272,7 @@ If you find our code or method useful in your research, please consider citing o
 
 ```bibtex
 @misc{mousavi2026transferable,
-  title         = {{Transferable Adversarial Robustness for Speech Foundation Models via Hierarchical Stabilization}},
+  title         = {Transferable Adversarial Robustness for Speech Foundation Models via Hierarchical Stabilization},
   author        = {Aref Mousavi and Shahab Sherafat and Kiarash Kiani Feriz and Amirparsa Safari and Raoof Zare Moayedi and Mohammad Hossein Rohban and Mohammad Sabokrou},
   year          = {2026},
   eprint        = {2610.05310},
