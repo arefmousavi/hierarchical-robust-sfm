@@ -5,7 +5,7 @@ Official PyTorch implementation of **"Transferable Adversarial Robustness for Sp
 > **Authors:** Aref Mousavi, Shahab Sherafat\*, Kiarash Kiani Feriz\*, Amirparsa Safari\*, Raoof Zare Moayedi, Mohammad Hossein Rohban, Mohammad Sabokrou  
 > \* Equal contribution.
 
-**Links:** Paper and BibTeX will be available after publication.
+**Paper:** [arXiv](https://arxiv.org/pdf/2610.05310)
 
 <p align="center">
   <img src="assets/overview.png" width="100%" alt="Hierarchical robustification, clean task adaptation, and head-only margin refinement">
@@ -268,4 +268,16 @@ All experiment settings are exposed in the YAML files under [`config/`](config/)
 
 ## 📝 Citation
 
-The paper link and BibTeX entry will be added upon publication.
+If you find our code or method useful in your research, please consider citing our paper:
+
+```bibtex
+@misc{mousavi2026transferable,
+  title         = {{Transferable Adversarial Robustness for Speech Foundation Models via Hierarchical Stabilization}},
+  author        = {Aref Mousavi and Shahab Sherafat and Kiarash Kiani Feriz and Amirparsa Safari and Raoof Zare Moayedi and Mohammad Hossein Rohban and Mohammad Sabokrou},
+  year          = {2026},
+  eprint        = {2610.05310},
+  archivePrefix = {arXiv},
+  primaryClass  = {eess.AS},
+  url           = {https://arxiv.org/abs/2610.05310}
+}
+```
